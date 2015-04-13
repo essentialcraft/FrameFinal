@@ -7,6 +7,8 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.ArrayMap;
 import com.mygdx.game.*;
 import com.mygdx.game.Entities.Dude;
@@ -34,7 +36,7 @@ public class WorldController extends InputAdapter {
 
     //not bein used
     public MainTileMap mainMap;
-
+    public World world;
 
     /*
     * Creates the camera helper, a utililty class for camera manipulation
@@ -77,6 +79,8 @@ public class WorldController extends InputAdapter {
     private void init() {
         Gdx.input.setInputProcessor(this);
 
+        //world = new World(new Vector2(0,0),true);
+
         cameraHelper = new CameraHelper();
         cameraHelper.setPosition(Constants.GAME_WORLD / 2, Constants.GAME_WORLD/2);
 
@@ -116,7 +120,7 @@ public class WorldController extends InputAdapter {
     * Create actors, for now specifically the dude actor
     * */
     private void initActors(){
-        dude = new Dude();
+        dude = new Dude(0);
         dude.setRegion(Assets.instance.dudeAsset.body);
     }
 

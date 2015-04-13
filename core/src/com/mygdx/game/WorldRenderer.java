@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Disposable;
 import com.mygdx.game.model.WorldController;
@@ -35,6 +36,8 @@ public class WorldRenderer implements Disposable {
     private ShapeRenderer shaper;
     private Stage stage;
 
+    Box2DDebugRenderer debugRenderer;
+
     /*
     * Default constructor
     * */
@@ -54,7 +57,7 @@ public class WorldRenderer implements Disposable {
 
         //set stage from controller
         stage = worldController.display.getStage();
-
+        debugRenderer = new Box2DDebugRenderer();
         /*
         * For rendering
         * Batch redners sprites
@@ -74,6 +77,8 @@ public class WorldRenderer implements Disposable {
                 Constants.VIEWPORT_HEIGHT);
         viewportCamera.position.set(0, 0, 0);
         viewportCamera.update();
+
+
     }
 
 
@@ -121,7 +126,7 @@ public class WorldRenderer implements Disposable {
         renderGrid((int) Constants.GAME_WORLD);
         renderWorldBounds();
 
-
+        debugRenderer.render(GameInstance.getInstance().world, viewportCamera.combined);
     }
 
 

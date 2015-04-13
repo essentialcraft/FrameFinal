@@ -15,6 +15,8 @@ import com.mygdx.game.old.Ground;
  */
 public class Level {
 
+    private static int numOfTiles = 1;
+
     public static final String TAG = Level.class.getName();
 
     public enum BLOCK_TYPE {
@@ -77,7 +79,7 @@ public class Level {
                 // ground
                 else if (BLOCK_TYPE.GROUND.sameColor(currentPixel)) {
                     if (lastPixel != currentPixel) {
-                        obj = new Ground();
+                        obj = new Ground(numOfTiles++);
                         float heightIncreaseFactor = 0.25f;
                         offsetHeight = -2.5f;
                         obj.position.set(pixelX,
@@ -112,9 +114,9 @@ public class Level {
             }
 
             // decoration
-            clouds = new Clouds(pixmap.getWidth());
+            clouds = new Clouds(numOfTiles,pixmap.getWidth());
             clouds.position.set(0, 2);
-            background = new Background(pixmap.getWidth());
+            background = new Background(numOfTiles,pixmap.getWidth());
             background.position.set(-1, -1);
 
             // free memory

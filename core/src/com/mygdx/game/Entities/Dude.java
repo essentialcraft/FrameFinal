@@ -35,7 +35,8 @@ public class Dude extends AbstractGameObject {
     /*
     * set dude spawn point and make dude
     * */
-    public Dude() {
+    public Dude(int id) {
+        super(id);
         this.position.set(10, 10);
     }
 

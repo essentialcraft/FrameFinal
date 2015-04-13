@@ -17,7 +17,8 @@ public class Background extends AbstractGameObject {
 
     private int length;
 
-    public Background(int length) {
+    public Background(int id, int length) {
+        super(id);
         this.length = length;
         init();
     }

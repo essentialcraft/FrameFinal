@@ -20,7 +20,9 @@ public class Clouds extends AbstractGameObject {
 
     private class Cloud extends AbstractGameObject {
         private TextureRegion regCloud;
-        public Cloud () {}
+        public Cloud (int id) {
+            super(id);
+        }
 
         public void setRegion (TextureRegion region) {
             regCloud = region;
@@ -41,7 +43,8 @@ public class Clouds extends AbstractGameObject {
         }
     }
 
-    public Clouds (float length) {
+    public Clouds (int id, float length) {
+        super(id);
         this.length = length;
         init();
     }
@@ -63,7 +66,7 @@ public class Clouds extends AbstractGameObject {
         }
     }
     private Cloud spawnCloud () {
-        Cloud cloud = new Cloud();
+        Cloud cloud = new Cloud(id);
         cloud.dimension.set(dimension);
 
         // select random cloud image

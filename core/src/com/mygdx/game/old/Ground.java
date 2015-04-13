@@ -16,7 +16,8 @@ public class Ground extends AbstractGameObject {
 
 
 
-    public Ground () {
+    public Ground (int id) {
+        super(id);
         init();
     }
 

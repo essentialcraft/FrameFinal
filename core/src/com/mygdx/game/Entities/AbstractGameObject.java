@@ -4,12 +4,26 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.CircleShape;
+import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.mygdx.game.GameInstance;
 
 /**
  * Created by Ian on 1/21/2015.
  */
 
 public abstract class AbstractGameObject {
+
+    public final int id;
+
+    /*
+    * For physics
+    * */
+    public Body body;
+
+
 
     /*
     * Fields for a basic 2d object on a flat plane
@@ -30,12 +44,34 @@ public abstract class AbstractGameObject {
     public Vector2 acceleration;
     public Rectangle bounds;
 
-    int id = 0;
+
 
     /*
     * Default constructor
     * */
-    public AbstractGameObject() {
+    public AbstractGameObject(int id) {
+
+        this.id = id;
+
+        BodyDef bodyDef = new BodyDef();
+        bodyDef.type = BodyDef.BodyType.DynamicBody;
+        /*bodyDef.position.set((sprite.getX() + sprite.getWidth()/2) /
+                        PIXELS_TO_METERS,
+                (sprite.getY() + sprite.getHeight()/2) / PIXELS_TO_METERS);*/
+
+        body = GameInstance.getInstance().world.createBody(bodyDef);
+
+        CircleShape shape = new CircleShape();
+        shape.setRadius(16);
+
+        //shape.setAs(sprite.getWidth()/2 / PIXELS_TO_METERS, sprite.getHeight()
+        //        /2 / PIXELS_TO_METERS);
+
+        FixtureDef fixtureDef = new FixtureDef();
+        fixtureDef.shape = shape;
+
+        body.createFixture(fixtureDef);
+        shape.dispose();
 
         position = new Vector2();
         dimension = new Vector2(1, 1);
