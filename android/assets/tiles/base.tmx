@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="40" height="40" tilewidth="16" tileheight="16">
+ <tileset firstgid="1" name="hyptosis_tile-art-batch-1" tilewidth="16" tileheight="16">
+  <image source="hyptosis_tile-art-batch-1.png" width="960" height="960"/>
+ </tileset>
+ <tileset firstgid="3601" name="LttP-" tilewidth="16" tileheight="16">
+  <image source="LttP/LttP-.png" width="1550" height="930"/>
+ </tileset>
+ <tileset firstgid="9169" name="LttP-" tilewidth="16" tileheight="16">
+  <image source="LttP/LttP-.png" width="1550" height="930"/>
+ </tileset>
+ <tileset firstgid="14737" name="pokemon" tilewidth="16" tileheight="16">
+  <image source="pokemon/pokemon.png" width="2240" height="2400"/>
+ </tileset>
+ <layer name="Tile Layer 1" width="40" height="40">
+  <data encoding="base64" compression="zlib">
+   eJztlllu1EAURWsPJh0RcPILS2AI/GQTzOtgcLwOhsAmko8kkKyDodPrYAhwW/KTrm6/mqBRGyktHalit6tOvfuqnZeXQngFXoM3YA+8Be/AZhPCFmib1Y2/wuMb+A5+gHPwE/wCu7jfg65Z3fjeWgj3wQPwEDwCj8ETcIb7MzBtVjc+hMcROAbvwQdwAk7XxpHv5UkIG+AKuApasAm2JuPI9yk8noHn4AXo5l6gn4wj34/w+AQ+gy9gOvcCs0ldFswy872xHsJNcAvcBtvgDri7vrhuLZ47szs4sJPm6z3XLwlbx5vbvDrx03w9n9mSsHV4bvbqBgeuGde9Tfhob/H3SmrHdWgb34vhvdh63XBN12e3P6lp2/hO6mVOZ/K8rcf5zgYnrZs9k/vEfGJO5mEfvWf5mkPr+PUZr5IaaZ3Ug+fSnDty0HPeN4t1q82Nx3w2+brN2zWL7lP6jp7zXB/FnGzfsfeVfr+NXOd8Lf8aH2+vJe8rfVbrpvsxz5o++pv3lfZZbp8lfZTKKzf29q5Oqf2knPTMlOaYyiN2TlP9yvPye9Dm1b7MEcujddbM7Zl7lP3szExlvRI0D/au7WN20Dy5ljWwU6rvSvrYnok51marTva39nfp2Os5dazNl/vFq13N75FXT3ZU/xK039it9nfKq605qqf65v5XqMn02k4I13fS+Xq10txy/eZ5xbKbO5nXPjgYxql8dazZpfqNKXn37JMXk8u39B3v+dTMU3t+xzguPUerGi8zi38xHkuOF/le5DvG8Vhy/F/z/Q2YRYcC
+  </data>
+ </layer>
+ <layer name="Tile Layer 2" width="40" height="40">
+  <data encoding="base64" compression="zlib">
+   eJzt0KERACAMALEyBuuAZrFOjUVXFBMR//d5IhIAAIAWY9V19M1d9/stAAC8LkjSMCs=
+  </data>
+ </layer>
+ <layer name="Tile Layer 3" width="40" height="40">
+  <data encoding="base64" compression="zlib">
+   eJzt1ssJhEAQRdEyjAlFwfaXw6gp25qEnzx8a2VWg3Qh98CFXj5q1TE3m9WiosN3X5gNaix8vje1q8PpGwCAVEJpVqlaNWXqNXeTNkU1q8XBvuu9vkF/DTWoMaRed7/Xqk2b2tXhYJ+3e115uxd+y9rn+8enez4AAADgLU72OpWt
+  </data>
+ </layer>
+ <layer name="Tile Layer 4" width="40" height="40">
+  <data encoding="base64" compression="zlib">
+   eJzt18dTU1EUx/GnLlSKIsW6s7edFQIRrAsVUJEk1oUKCUSSYFuoFEWKdaECKtX6Z1gXShLrQqUokGBdqBSVpn4zcxdvElwwwsyVyZn5TM6bd++7Z/N+SRRF/rJHKooDzkj5ek/pohRFD0OUfL2nXHy60RIlX+8pi0ZRrLBp5Ov/t1qWoSixiMNyrMQq0ctQduZwwInHeIpnopehdBbeHRiwBduwXfQylIs53GjBO3zAR9HLUBYr7w5syMR+HBC9DNXNHD3oxS/PTDZFGWYTvQRVwCyFKMJJW//2amN4/xGLuJjBmS8sU1HCEYHxmf3bW8NMdjjgHKT5/qWStbz/0MOgHbjnLiDbFmIRFmMJloq8e2hUlEeogR0OOI2+z0hi/WYkQwe92O+d9ytUmb8aaxCPBCRiAzZikypvb9PfwV3cw308EPeTTJyLZOigh8HkO18j65vQDBfcYr933j9RZf5zvEAt6lCPBrzBW9V8a8m2dViPeCQgUeRdI7M0oRkuuNHSx3xm1u9FBiywiv3eeb9Vlfk7sBMpSIURJqQhXZW3L+lf4TVqUYd6cd+cxrnIgAVW2NJ85/vJ+k50oRs9Yr933r9XZf4nfEYr2tCODnzHD9V8u8i23diDFKTCKPLuJ7N0ogvd6EFvH/Plsf4E8lGAQrHfO+/3qTL/IA4hC9nIQS6O4bgqb7/Qf8U3tKIN7eJ+XjrnIh8FKERRuu98IWTlOIQiDOEiO73z/rcq84djBAIQiCAEYwzGqrL3MP0RHEUWspEj7oeYORehCEM4Isy+85WxvhwVqESV2O+d96dwGmdwFudQjBKU4hIu44pqvpHk8CiMRgACESSyuYxZylGBSlShuo/5ZrN+DuZiHuaL/d55PwETMQmTMQVTMQ3TMQMzMUv13XCe/gIuohglKO3nd8ffqpLnVKEaV3EN13EDN3FrgM7xl7/85a+hVnUafqugAbUa+a5To/mtAhNSouW7bkM7OtAq4XU2/7NykIusGPmuA/mfFYRgBGjlu/bX0K4/oDFa+A==
+  </data>
+ </layer>
+ <layer name="Tile Layer 5" width="40" height="40">
+  <data encoding="base64" compression="zlib">
+   eJztzzdOA0EYhuGf1BAaCjKHAEHlcBC8uLG9JoPINGRscrgAHekQILgGOYlMQ04C3pFFsRLIFJZ2inmlR6PRWPZnEZPJZDKZTCaTDl2GRK5wjRvchtxe5KwrLNKNHvSiL+z2ImdpEZF0ZCATWRG3FzmbYc8s5jCPBc32FdsiJShFGcpttxc5W2LPMlawijXN9lVERSoRqxGp4qyO/v459b4fEDnAIY5wjBOcBhLvZ5znuAikbt86ezaQz3ducm79sU+9N1gijWhCM1rQijYr8d7O2YFOK3X7flpM8p/V+xO/+4wXvOIN7/iwEu+fnF9qW23q9/2nYX53BKMYQwxxjGMCk5jCtEv7klUQFClEUdDtJSaTyaRX2x6RHexiz6PXXWV7RaKoQ71Xr7vqjvMeD3j06nVX9ftEBjCIIZ9ed1W2XyQHucjz63XXvW+tqeyN
+  </data>
+ </layer>
+ <objectgroup name="Colidable" width="40" height="40">
+  <object x="426" y="368" width="85" height="29"/>
+  <object x="394" y="270" width="109" height="65"/>
+  <object x="387" y="370" width="10" height="10">
+   <ellipse/>
+  </object>
+ </objectgroup>
+</map>
