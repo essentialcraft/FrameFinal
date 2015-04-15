@@ -43,11 +43,11 @@ package com.emailgame.assets;//package com.mygdx.game.assets;
 //
 //    public Clouds (float length) {
 //        this.length = length;
-//        init();
+//        loadAssets();
 //    }
 //
 //
-//    private void init () {
+//    private void loadAssets () {
 //        dimension.set(3.0f, 1.5f);
 //        regClouds = new Array<TextureRegion>();
 //        regClouds.add(Assets.instance.decoration.cloudOne);

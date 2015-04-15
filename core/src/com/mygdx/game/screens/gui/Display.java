@@ -95,7 +95,7 @@ public class Display {
 
         /*
         * The stage must hold all the ui widgets
-        * TODO Stage widget management should be outside of the init() method for DRY
+        * TODO Stage widget management should be outside of the loadAssets() method for DRY
         * */
         stage.addActor(window);
     }

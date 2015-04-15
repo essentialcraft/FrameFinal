@@ -20,10 +20,10 @@ package com.emailgame.assets;//package com.mygdx.game.assets;
 //
 //    public Background(int length) {
 //        this.length = length;
-//        init();
+//        loadAssets();
 //    }
 //
-//    private void init() {
+//    private void loadAssets() {
 //        dimension.set(2, 2);
 //        background = Assets.instance.decoration.background;
 //

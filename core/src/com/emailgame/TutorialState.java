@@ -13,7 +13,7 @@ public class TutorialState extends GameState{
     }
 
     @Override
-    public void init(){
+    public void loadAssets(){
 
     }
 

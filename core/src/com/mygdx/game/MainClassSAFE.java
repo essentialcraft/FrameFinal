@@ -45,7 +45,7 @@ public class MainClass extends ApplicationAdapter, Screen {
 		* Must be initialized before the WorldController for assets to be available
 		* *//*
 
-        Assets.instance.init(new AssetManager());
+        Assets.instance.loadAssets(new AssetManager());
 
 
         // Initialize controller and renderer
@@ -100,7 +100,7 @@ public class MainClass extends ApplicationAdapter, Screen {
     //android requires assets be reloaded on resume
     @Override
     public void resume () {
-        Assets.instance.init(new AssetManager());
+        Assets.instance.loadAssets(new AssetManager());
         paused = false;
     }
     @Override

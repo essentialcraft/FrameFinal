@@ -60,7 +60,7 @@ public class Assets implements Disposable, AssetErrorListener {
     }
 
 
-    public void init(AssetManager assetManager) {
+    public void loadAssets(AssetManager assetManager) {
         this.assetManager = assetManager;
 
         // set asset manager error handler
@@ -219,7 +219,7 @@ public class Assets implements Disposable, AssetErrorListener {
         public final Texture back;
 
         public Background(){
-            back = new Texture(Gdx.files.internal("android/assets/back.png"));
+            back = new Texture(Gdx.files.internal("android/assets/background/back.png"));
         }
     }
 

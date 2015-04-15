@@ -17,12 +17,12 @@ package com.emailgame.assets;//package com.mygdx.game.assets;
 //
 //
 //    public Ground () {
-//        init();
+//        loadAssets();
 //    }
 //
 //
 //
-//    private void init () {
+//    private void loadAssets () {
 //        dimension.set(1, 1.5f);
 //        regEdge = Assets.instance.groundTwo.edge;
 //        regMiddle = Assets.instance.groundTwo.middle;

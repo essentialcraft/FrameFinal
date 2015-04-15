@@ -18,7 +18,7 @@ public class GameScreen extends DefaultScreen implements InputProcessor {
 
     public GameScreen(Stage stage, Game game) {
         super(stage, game);
-        Assets.instance.init(new AssetManager());
+        Assets.instance.loadAssets(new AssetManager());
 
         // Initialize controller and renderer
         worldController = new WorldController();
@@ -73,7 +73,7 @@ public class GameScreen extends DefaultScreen implements InputProcessor {
     //android requires assets be reloaded on resume
     @Override
     public void resume () {
-        Assets.instance.init(new AssetManager());
+        Assets.instance.loadAssets(new AssetManager());
         paused = false;
     }
     @Override
