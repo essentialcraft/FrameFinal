@@ -11,13 +11,13 @@ import com.mstem.virusshootergame.MyGdxGame;
 /**
  * Created by catherine huang on 4/13/15.
  */
-public class GameScreen extends DefaultScreen implements InputProcessor {
+public class ShooterScreen extends DefaultScreen implements InputProcessor {
     private MyGdxGame virusGame;
 
     //not implemented yet
     private boolean paused;
 
-    public GameScreen(Stage stage, Game game) {
+    public ShooterScreen(Stage stage, Game game) {
         super(stage, game);
 //        Assets.instance.init(new AssetManager());
 

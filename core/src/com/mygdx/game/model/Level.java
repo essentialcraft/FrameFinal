@@ -4,7 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
-import com.mygdx.game.Entities.AbstractDynamicObject;
+import com.mygdx.game.entities.AbstractDynamicObject;
 import com.mygdx.game.Background;
 import com.mygdx.game.old.Clouds;
 import com.mygdx.game.old.Ground;

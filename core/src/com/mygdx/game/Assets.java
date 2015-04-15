@@ -36,14 +36,17 @@ public class Assets implements Disposable, AssetErrorListener {
     * Each is an inner class of this class
     * */
     public DudeAsset dudeAsset;
+    public MainMap mainMap;
+
     public Ground ground;
     public LevelDecoration decoration;
     public GroundTwo groundTwo;
     public Background back;
-    public MainMap mainMap;
+
 
     /*
     * Assets and asset manager
+    * Assets is a singleton, all calls are made on the final of the instance directly
     * */
     public static final Assets instance = new Assets();
     private AssetManager assetManager;

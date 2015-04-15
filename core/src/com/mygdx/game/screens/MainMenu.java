@@ -38,8 +38,12 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 //import com.mygdx.game.ResourceLoader;
+import com.emailgame.EmailScreen;
+import com.emailgame.PhoneState;
+import com.mstem.virusshootergame.Screen.ShooterScreen;
 import com.mygdx.game.MainClass;
 import com.mygdx.game.screens.gui.TouchUpListener;
+
 
 /**
  * @author matheusdev
@@ -56,10 +60,16 @@ public class MainMenu extends DefaultScreen implements InputProcessor {
             game.setScreen(new GameScreen(new Stage(), game));
         }
     };
-    private final InputListener settingsListener = new TouchUpListener() {
+    private final InputListener emailListener = new TouchUpListener() {
         @Override
         public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-            //game.pushScreen(new ScreenSettings(resources, game));
+            game.setScreen(new PhoneState(new Stage(), game));
+        }
+    };
+    private final InputListener shooterListener = new TouchUpListener() {
+        @Override
+        public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+            game.setScreen(new ShooterScreen(new Stage(), game));
         }
     };
     private final InputListener exitListener = new TouchUpListener() {
@@ -89,12 +99,14 @@ public class MainMenu extends DefaultScreen implements InputProcessor {
         skin = new Skin(Gdx.files.internal("android/assets/ui_skin/uiskin.json"));
 
         //Image rorLogo = new Image(ruinsOfRevengeText);
-        TextButton play = new TextButton("Play", skin);
-        //TextButton settings = new TextButton("Settings", skin);
+        TextButton play = new TextButton("Morris Town", skin);
+        TextButton email = new TextButton("Email Game", skin);
+        TextButton shooter = new TextButton("Shooter", skin);
         TextButton exit = new TextButton("Exit", skin);
 
         play.addListener(playListener);
-        //settings.addListener(settingsListener);
+        email.addListener(emailListener);
+        shooter.addListener(shooterListener);
         exit.addListener(exitListener);
 
         table = new Table(skin);
@@ -102,7 +114,9 @@ public class MainMenu extends DefaultScreen implements InputProcessor {
         table.row();
         table.add(play).size(320, 64).space(8);
         table.row();
-        //table.add(settings).size(320, 64).space(8);
+        table.add(email).size(320, 64).space(8);
+        table.row();
+        table.add(shooter).size(320,64).space(8);
         table.row();
         table.add(exit).size(320, 64).space(8);
         table.setPosition(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2);

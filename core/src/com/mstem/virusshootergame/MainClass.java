@@ -4,7 +4,7 @@ import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.mstem.virusshootergame.Screen.GameScreen;
+import com.mstem.virusshootergame.Screen.ShooterScreen;
 
 //import com.mygdx.game.screens.TestScreen;
 
@@ -18,7 +18,7 @@ public class MainClass extends Game {
 
 
         //Assets.load();
-        setScreen(new GameScreen(new Stage(),this));
+        setScreen(new ShooterScreen(new Stage(),this));
 
     }
 

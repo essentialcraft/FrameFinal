@@ -9,7 +9,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.Assets;
-import com.mygdx.game.Entities.AbstractDynamicObject;
+import com.mygdx.game.entities.AbstractDynamicObject;
 
 public class Clouds extends AbstractDynamicObject {
 

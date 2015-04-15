@@ -3,7 +3,7 @@ package com.mygdx.game.old;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.mygdx.game.Assets;
-import com.mygdx.game.Entities.AbstractDynamicObject;
+import com.mygdx.game.entities.AbstractDynamicObject;
 
 /**
  * Created by Ian on 2/5/2015.

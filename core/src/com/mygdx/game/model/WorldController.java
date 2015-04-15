@@ -5,13 +5,13 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ArrayMap;
 import com.mygdx.game.*;
-import com.mygdx.game.Entities.Dude;
+import com.mygdx.game.entities.Dude;
+import com.mygdx.game.entities.NPC;
 import com.mygdx.game.maps.MainTileMap;
 import com.mygdx.game.screens.gui.Display;
 import com.mygdx.game.util.Constants;
@@ -56,6 +56,7 @@ public class WorldController implements InputProcessor {
     * Dude is only active sprite 3/4/2015
     * */
     public Dude dude;
+    public NPC npc;
 
     public Sprite[] spriteGroup;
     public int selectedSprite;
@@ -289,10 +290,17 @@ public class WorldController implements InputProcessor {
         float inputForce = 20;
 
         float sprMoveSpeed = 10 * deltaTime;
-        if(Gdx.input.isKeyPressed(Keys.W)) dude.getBody().applyForceToCenter(0, inputForce, true);
-        if(Gdx.input.isKeyPressed(Keys.A)) dude.getBody().applyForceToCenter(-inputForce, 0, true);
-        if(Gdx.input.isKeyPressed(Keys.S)) dude.getBody().applyForceToCenter(0, -inputForce, true);
-        if(Gdx.input.isKeyPressed(Keys.D)) dude.getBody().applyForceToCenter(inputForce, 0, true);
+        if(Gdx.input.isKeyPressed(Keys.W)) dude.moveCharacter(1);
+        if(Gdx.input.isKeyPressed(Keys.A)) dude.moveCharacter(2);
+        if(Gdx.input.isKeyPressed(Keys.S)) dude.moveCharacter(0);
+        if(Gdx.input.isKeyPressed(Keys.D)) dude.moveCharacter(3);
+
+        if(Gdx.input.isKeyPressed(Keys.F)){
+            float angle = 1 * 90 * MathUtils.degRad;
+            dude.getBody().setTransform(dude.getBody().getPosition(), angle);
+        }
+
+
 
 
         // Camera Controls (move)

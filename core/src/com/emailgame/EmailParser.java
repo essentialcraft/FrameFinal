@@ -18,7 +18,7 @@ public class EmailParser {
         try{
             ClassLoader classLoader = getClass().getClassLoader();
             //find the xml file with the list of emails
-            File xmlFile = new File("./android/assets/Email.xml");
+            File xmlFile = new File("android/assets/Email.xml");
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             dbFactory.setIgnoringElementContentWhitespace(true);
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
