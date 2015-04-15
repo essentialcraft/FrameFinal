@@ -3,13 +3,13 @@ package com.mygdx.game.old;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.mygdx.game.Assets;
-import com.mygdx.game.Entities.AbstractGameObject;
+import com.mygdx.game.Entities.AbstractDynamicObject;
 
 /**
  * Created by Ian on 2/5/2015.
  */
 
-public class Ground extends AbstractGameObject {
+public class Ground extends AbstractDynamicObject {
     private TextureRegion regEdge;
     private TextureRegion regMiddle;
     private int length;

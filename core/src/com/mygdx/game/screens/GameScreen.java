@@ -13,8 +13,6 @@ public class GameScreen extends DefaultScreen implements InputProcessor {
     private WorldController worldController;
     private WorldRenderer worldRenderer;
 
-
-
     //not implemented
     private boolean paused;
 
@@ -29,10 +27,6 @@ public class GameScreen extends DefaultScreen implements InputProcessor {
         // Game world is active on start
         paused = false;
     }
-
-
-
-
 
     /*
     * Clear the screen, laste method draws the new updated world

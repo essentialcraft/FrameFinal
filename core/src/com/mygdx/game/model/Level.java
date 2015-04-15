@@ -4,7 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
-import com.mygdx.game.Entities.AbstractGameObject;
+import com.mygdx.game.Entities.AbstractDynamicObject;
 import com.mygdx.game.Background;
 import com.mygdx.game.old.Clouds;
 import com.mygdx.game.old.Ground;
@@ -59,7 +59,7 @@ public class Level {
         for (int pixelY = 0; pixelY < pixmap.getHeight(); pixelY++) {
             for (int pixelX = 0; pixelX < pixmap.getWidth(); pixelX++) {
 
-                AbstractGameObject obj = null;
+                AbstractDynamicObject obj = null;
                 float offsetHeight = 0;
 
                 // height grows from bottom to top

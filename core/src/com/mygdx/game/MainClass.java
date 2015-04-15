@@ -4,7 +4,7 @@ import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 
-import com.mygdx.game.screens.TestScreen;
+import com.mygdx.game.screens.MainMenu;
 
 public class MainClass extends Game {
 	@Override
@@ -13,7 +13,7 @@ public class MainClass extends Game {
 		Gdx.app.setLogLevel(Application.LOG_DEBUG);
 
 		//Assets.load();
-		setScreen(new TestScreen(this));
+		setScreen(new MainMenu(this));
 
 	}
 

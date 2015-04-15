@@ -156,7 +156,7 @@ public class Display {
     * TODO introduce multiple labels with variable input streams
     * */
     public void setText(String text){
-        headerLabel.setText(text);
+        label.setText(text);
     }
 
     /*

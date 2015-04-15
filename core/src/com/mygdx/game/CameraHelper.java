@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
-import com.mygdx.game.Entities.AbstractGameObject;
+import com.mygdx.game.Entities.AbstractDynamicObject;
 import com.mygdx.game.util.Constants;
 
 /**
@@ -18,7 +18,7 @@ public class CameraHelper {
     /*
     * Two classes to choose a target in different ways
     * */
-    private AbstractGameObject targetAbstract;
+    private AbstractDynamicObject targetAbstract;
     private Sprite target;
 
     private static final String TAG = CameraHelper.class.getName();
@@ -52,8 +52,11 @@ public class CameraHelper {
         //position.x = target.getX() + target.getOriginX();
         //position.y = target.getY() + target.getOriginY();
 
-        position.x = targetAbstract.position.x + targetAbstract.origin.x;
-        position.y = targetAbstract.position.y + targetAbstract.origin.y;
+
+
+
+        position.x = targetAbstract.getBody().getPosition().x;
+        position.y = targetAbstract.getBody().getPosition().y;
     }
 
     /*
@@ -109,7 +112,7 @@ public class CameraHelper {
 
     //---------------------
 
-    public void setTargetAbstract (AbstractGameObject target) {
+    public void setTargetAbstract (AbstractDynamicObject target) {
         this.targetAbstract = target;
         Gdx.app.debug("CamHelper", "Target set\n" +
                 this.targetAbstract.toString());
@@ -117,11 +120,11 @@ public class CameraHelper {
     public boolean hasTargetAbstract(){
         return  targetAbstract != null;
     }
-    public AbstractGameObject getTargetAbstract () {
+    public AbstractDynamicObject getTargetAbstract () {
         return targetAbstract;
     }
 
-    public boolean hasTargetAbstract (AbstractGameObject target) {
+    public boolean hasTargetAbstract (AbstractDynamicObject target) {
         return hasTarget() && this.targetAbstract.equals(target);
     }
 

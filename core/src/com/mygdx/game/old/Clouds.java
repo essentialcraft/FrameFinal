@@ -9,16 +9,16 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.Assets;
-import com.mygdx.game.Entities.AbstractGameObject;
+import com.mygdx.game.Entities.AbstractDynamicObject;
 
-public class Clouds extends AbstractGameObject {
+public class Clouds extends AbstractDynamicObject {
 
     private float length;
 
     private Array<TextureRegion> regClouds;
     private Array<Cloud> clouds;
 
-    private class Cloud extends AbstractGameObject {
+    private class Cloud extends AbstractDynamicObject {
         private TextureRegion regCloud;
         public Cloud (int id) {
             super(id);

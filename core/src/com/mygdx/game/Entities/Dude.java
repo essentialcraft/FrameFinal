@@ -1,16 +1,18 @@
 package com.mygdx.game.Entities;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.mygdx.game.Entities.AbstractGameObject;
+import com.badlogic.gdx.math.Vector2;
+import com.mygdx.game.util.Constants;
 //import com.mygdx.util.Constants/;
 
 /**
  * Created by Ian on 2/26/2015.
  */
-public class Dude extends AbstractGameObject {
+public class Dude extends AbstractDynamicObject {
 
-
+    private static final String TAG = Dude.class.getName();
     /*
     * Dude is the little guy sprite being built
     * This is the player character class and has a long way to go
@@ -37,7 +39,8 @@ public class Dude extends AbstractGameObject {
     * */
     public Dude(int id) {
         super(id);
-        this.position.set(10, 10);
+        super.getBody().setUserData(this);
+        this.position.set(15, 15);
     }
 
     /*
@@ -49,46 +52,20 @@ public class Dude extends AbstractGameObject {
     }
 
 
-    //I HAVE NO IDEA WHAT I DID DOWN HERE
 
-    /*
-    //public void setRegion (TextureRegion region) {
-    //    regCloud = region;
-    //}
-
-
-
-    /*private void init () {
-
-        dudeTexture = Assets.instance.dude.body;
-        dimension.set(1, 1);
-        // position
-        Vector2 pos = new Vector2();
-        pos.x = Constants.GAME_WORLD/2; // postition at center of map
-        pos.y = Constants.GAME_WORLD/2; //
-
-    }*/
-
-    /*private Dude spawnDude () {
-
-        Dude dude = new Dude();
-
-
-
-
-        return dude;
-    }*/
-
-    /*public Dude spawnDude(){
-
-
-
-    }*/
 
 
     public void setRegion (TextureRegion region) {
 
         dudeTexture = region;
+    }
+
+    public float getWidth(){
+        return dudeTexture.getRegionWidth() * Constants.UNIT_SCALE/2;
+    }
+
+    public float getHeight(){
+        return dudeTexture.getRegionHeight() * Constants.UNIT_SCALE/2;
     }
 
 
@@ -100,10 +77,9 @@ public class Dude extends AbstractGameObject {
     public void render (SpriteBatch batch) {
         TextureRegion reg = null;
 
-
         reg = dudeTexture;
         batch.draw(reg.getTexture(),
-                position.x, position.y,
+                super.getBody().getPosition().x-.5f, super.getBody().getPosition().y-.5f,
                 origin.x, origin.y,
                 dimension.x, dimension.y,
                 scale.x, scale.y,

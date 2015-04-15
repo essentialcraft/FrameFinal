@@ -5,7 +5,9 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -20,6 +22,8 @@ public class WorldRenderer implements Disposable {
 
 
     public static final String TAG = WorldRenderer.class.getName();
+
+    private int drawSpritesAfterLayer = 1;
 
     /*
     * Renderer has access to the controller
@@ -58,6 +62,7 @@ public class WorldRenderer implements Disposable {
         //set stage from controller
         stage = worldController.display.getStage();
         debugRenderer = new Box2DDebugRenderer();
+
         /*
         * For rendering
         * Batch redners sprites
@@ -111,14 +116,46 @@ public class WorldRenderer implements Disposable {
         * ehhhhhhh
         * */
         tileRenderer.setView(viewportCamera);
-        tileRenderer.render();
+        //tileRenderer.render();
 
-        /*
-        * Begin sprite drawing
-        * */
-        batch.begin();
-        worldController.dude.render(batch);
-        batch.end();
+        int currentLayer = 0;
+
+        for(MapLayer layer : Assets.instance.mainMap.map.getLayers()){
+
+            int[] bgLayers = {0,1};
+            int[] fgLayers = {2,3,4,5};
+            tileRenderer.render(bgLayers);
+
+            batch.begin();
+            worldController.dude.render(batch);
+            batch.end();
+
+
+            tileRenderer.render(fgLayers);
+
+        }
+
+          /*
+        for (MapLayer layer : map.getLayers()) {
+            if (layer.isVisible()) {
+                if (layer instanceof TiledMapTileLayer) {
+                    renderTileLayer((TiledMapTileLayer)layer);
+                    currentLayer++;
+                    if(currentLayer == drawSpritesAfterLayer){
+                        for(Sprite sprite : sprites)
+                            sprite.draw(this.getSpriteBatch());
+                    }
+                } else {
+                    for (MapObject object : layer.getObjects()) {
+                        renderObject(object);
+                    }
+                }
+            }
+        }*/
+
+
+
+
 
         /*
         * Render the debug grid
@@ -127,6 +164,7 @@ public class WorldRenderer implements Disposable {
         renderWorldBounds();
 
         debugRenderer.render(GameInstance.getInstance().world, viewportCamera.combined);
+
     }
 
 

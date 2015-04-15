@@ -5,6 +5,7 @@ package com.mygdx.game;
  */
 
 
+import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.Application.ApplicationType;
@@ -12,6 +13,8 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
+import com.mygdx.game.util.Constants;
+import com.mygdx.game.util.MapBodyManager;
 
 public class GameInstance {
 
@@ -24,8 +27,8 @@ public class GameInstance {
     public int antiAliasConfig = 0;
 
 
-    public World world = new World(new Vector2(0,0),true);
-
+    public World world = new World(new Vector2(0,0),false);
+    //public MapBodyManager mapBodyManager = new MapBodyManager(world, Constants.UNIT_SCALE, null, Application.LOG_DEBUG);
 
 
     public static GameInstance instance;

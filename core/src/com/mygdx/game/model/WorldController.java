@@ -1,20 +1,21 @@
 package com.mygdx.game.model;
 
-import com.badlogic.gdx.Application;
-import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ArrayMap;
 import com.mygdx.game.*;
 import com.mygdx.game.Entities.Dude;
 import com.mygdx.game.maps.MainTileMap;
 import com.mygdx.game.screens.gui.Display;
 import com.mygdx.game.util.Constants;
+import com.mygdx.game.util.MapBodyManager;
 
 
 /**
@@ -24,7 +25,7 @@ import com.mygdx.game.util.Constants;
  * to the other modules as well as control input
  *
  */
-public class WorldController extends InputAdapter {
+public class WorldController implements InputProcessor {
 
     private static final String TAG = WorldController.class.getName();
 
@@ -37,6 +38,7 @@ public class WorldController extends InputAdapter {
     //not bein used
     public MainTileMap mainMap;
     public World world;
+    public MapBodyManager bodyManager;
 
     /*
     * Creates the camera helper, a utililty class for camera manipulation
@@ -77,9 +79,16 @@ public class WorldController extends InputAdapter {
     * Build class
     * */
     private void init() {
-        Gdx.input.setInputProcessor(this);
 
+
+        Gdx.input.setInputProcessor(this);
         //world = new World(new Vector2(0,0),true);
+        /*
+        * Body manager to be used for static collisions
+        * second argument being 16 is because the game uses a unit/tile scale of 1/16f
+        * */
+        bodyManager = new MapBodyManager(GameInstance.getInstance().world,16, null, Application.LOG_DEBUG);
+
 
         cameraHelper = new CameraHelper();
         cameraHelper.setPosition(Constants.GAME_WORLD / 2, Constants.GAME_WORLD/2);
@@ -90,6 +99,7 @@ public class WorldController extends InputAdapter {
         /*Initiate everything*/
         initActors();
         initUI();
+        bodyManager.createPhysics(Assets.instance.mainMap.map, "Obstacles");
     }
 
     /*
@@ -122,6 +132,7 @@ public class WorldController extends InputAdapter {
     private void initActors(){
         dude = new Dude(0);
         dude.setRegion(Assets.instance.dudeAsset.body);
+        dude.getBody().setTransform(dude.position.x + dude.getWidth(), dude.position.y + dude.getHeight(), 0);
     }
 
 
@@ -218,9 +229,34 @@ public class WorldController extends InputAdapter {
 
         //updateTestObjects(deltaTime);
 
+
+        // Create an array to be filled with the bodies
+// (better don't create a new one every time though)
+        Array<Body> bodies = new Array<Body>();
+// Now fill the array with all bodies
+        GameInstance.getInstance().world.getBodies(bodies);
+
+        for (Body b : bodies) {
+            // Get the body's user data - in this example, our user
+            // data is an instance of the Entity class
+            //Entity e = (Entity) b.getUserData();
+
+            if (dude != null) {
+                // Update the entities/sprites position and angle
+                dude.setPosition(b.getPosition().x, b.getPosition().y);
+                // We need to convert our angle from radians to degrees
+                //dude.setRotation(MathUtils.radiansToDegrees * b.getAngle());
+            }
+        }
+
         handleDebugInput(deltaTime);
+        //dude.getBody().setTransform(dude.position.x + dude.getWidth(), dude.position.y + dude.getHeight(), 0);
         cameraHelper.update(deltaTime);
+        //Gdx.app.debug(TAG, dude.getVelocity().toString());
+        display.setText(dude.getVelocity().toString());
         display.update();
+        dude.update(deltaTime);
+        GameInstance.getInstance().world.step(1/45f, 2, 6);
     }
 
 
@@ -237,6 +273,8 @@ public class WorldController extends InputAdapter {
         //rotation %= 360;
         // Set new rotation value to selected sprite
         //spriteGroup[selectedSprite].setRotation(rotation);
+
+
     }
 
 
@@ -248,30 +286,31 @@ public class WorldController extends InputAdapter {
     private void handleDebugInput (float deltaTime) {
         if (Gdx.app.getType() != Application.ApplicationType.Desktop) return;
 
-        // Selected Sprite Controls
-        float sprMoveSpeed = 10 * deltaTime;
-        if (Gdx.input.isKeyPressed(Keys.A)) dude.position.x -= sprMoveSpeed;
-        if (Gdx.input.isKeyPressed(Keys.D)) dude.position.x += sprMoveSpeed;
-        if (Gdx.input.isKeyPressed(Keys.W)) dude.position.y += sprMoveSpeed;
-        if (Gdx.input.isKeyPressed(Keys.S)) dude.position.y -= sprMoveSpeed;
+        float inputForce = 20;
 
-        if (Gdx.input.isKeyPressed(Keys.X)) cameraHelper.setPosition(10,10);
+        float sprMoveSpeed = 10 * deltaTime;
+        if(Gdx.input.isKeyPressed(Keys.W)) dude.getBody().applyForceToCenter(0, inputForce, true);
+        if(Gdx.input.isKeyPressed(Keys.A)) dude.getBody().applyForceToCenter(-inputForce, 0, true);
+        if(Gdx.input.isKeyPressed(Keys.S)) dude.getBody().applyForceToCenter(0, -inputForce, true);
+        if(Gdx.input.isKeyPressed(Keys.D)) dude.getBody().applyForceToCenter(inputForce, 0, true);
+
 
         // Camera Controls (move)
         float camMoveSpeed = 5 * deltaTime;
         float camMoveSpeedAccelerationFactor = 5;
-        if (Gdx.input.isKeyPressed(Keys.SHIFT_LEFT)) camMoveSpeed *=
+        if (Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)) camMoveSpeed *=
                 camMoveSpeedAccelerationFactor;
-        if (Gdx.input.isKeyPressed(Keys.LEFT)) moveCamera(-camMoveSpeed,
+        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) moveCamera(-camMoveSpeed,
                 0);
-        if (Gdx.input.isKeyPressed(Keys.RIGHT)) moveCamera(camMoveSpeed,
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) moveCamera(camMoveSpeed,
                 0);
-        if (Gdx.input.isKeyPressed(Keys.UP)) moveCamera(0, camMoveSpeed);
+        if (Gdx.input.isKeyPressed(Input.Keys.UP)) moveCamera(0, camMoveSpeed);
 
-        if (Gdx.input.isKeyPressed(Keys.DOWN)) moveCamera(0,
+        if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) moveCamera(0,
                 -camMoveSpeed);
-        if (Gdx.input.isKeyPressed(Keys.BACKSPACE))
+        if (Gdx.input.isKeyPressed(Input.Keys.BACKSPACE))
             cameraHelper.setPosition(0, 0);
+
 
         // Camera Controls (zoom)
         float camZoomSpeed = 1 * deltaTime;
@@ -290,7 +329,7 @@ public class WorldController extends InputAdapter {
     /*
     * Uses CameraHelper to control the camera position
     * */
-    private void moveCamera (float x, float y) {
+    public void moveCamera (float x, float y) {
         x += cameraHelper.getPosition().x;
         y += cameraHelper.getPosition().y;
 
@@ -312,6 +351,11 @@ public class WorldController extends InputAdapter {
     /*
     * Inputs
     * */
+
+    @Override
+    public boolean keyDown(int keycode) {
+        return false;
+    }
 
     @Override
     public boolean keyUp (int keycode) {
@@ -342,11 +386,49 @@ public class WorldController extends InputAdapter {
             }
             // Toggle camera follow
             else if (keycode == Keys.ENTER) {
-                cameraHelper.setTargetAbstract(cameraHelper.hasTarget() ? null : dude);
+                //cameraHelper.setTargetAbstract(cameraHelper.hasTarget() ? null : dude);
+            cameraHelper.setTargetAbstract(dude);
                 Gdx.app.debug(TAG, "Camera follow enabled: " +
                         cameraHelper.hasTargetAbstract());
             }
 
+        return false;
+    }
+
+
+
+
+
+
+
+    @Override
+    public boolean keyTyped(char character) {
+        return false;
+    }
+
+    @Override
+    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+        return false;
+    }
+
+    @Override
+    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+
+        return false;
+    }
+
+    @Override
+    public boolean touchDragged(int screenX, int screenY, int pointer) {
+        return false;
+    }
+
+    @Override
+    public boolean mouseMoved(int screenX, int screenY) {
+        return false;
+    }
+
+    @Override
+    public boolean scrolled(int amount) {
         return false;
     }
 }
