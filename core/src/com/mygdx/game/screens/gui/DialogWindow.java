@@ -14,7 +14,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 /**
  * Created by Ian on 1/21/2015.
  */
-public class Display {
+public class DialogWindow {
 
     /*
     * For building a window and assigning it a skin
@@ -24,16 +24,10 @@ public class Display {
     private TextureAtlas atlas;
 
     /*
-    * For holding the UI
-    * */
-    private Stage stage;
-    private Table table;
-
-    /*
     * Text labels
     * */
     private Label label;
-    private Label headerLabel;
+    private Label contentLabel;
 
 
 
@@ -47,101 +41,39 @@ public class Display {
     Label text;
     CheckBox useShadow, useNormals, yInvert;
 
-
-
-
-
-
-
-
-
     /*
     * Default constructor
     * */
-    public Display(){
-        //init();
-        /*
-        * Atlas holds the skin texture data
-        * Skin sets a new skin
-        * */
+    public DialogWindow(){
         atlas = new TextureAtlas("android/assets/ui_skin/uiskin.atlas");
         skin = new Skin(Gdx.files.local("android/assets/ui_skin/uiskin.json"), atlas);
         skin.addRegions(atlas);
-
     }
-
-    /*
-    * Construct the stage and call necessary components
-    * */
-    public void init(){
-        /*
-        * A display must be held by the stage
-        * */
-        stage = new Stage(new ScreenViewport());
-
-        table = new Table();
-        table.setFillParent(true);
-
-
-
-        /*
-        * Label is created and given a skin
-        * The window is created and its position set
-        * */
-        label = new Label("", skin);
-        window = makeWindow();
-        window.addActor(table);
-
-
-
-        /*
-        * The stage must hold all the ui widgets
-        * TODO Stage widget management should be outside of the loadAssets() method for DRY
-        * */
-        stage.addActor(window);
-    }
-
 
     /*
     * Build a basic window
     * */
     public Window makeWindow(){
 
-        window = new Window("Playe 1", skin);
+        window = new Window("Player 1", skin);
+        window.align(Align.center);
+        window.row().fill().expandX();
 
-        root = new Table(skin);
-        root.pad(2, 4, 4, 4).defaults().space(6);
-        root.columnDefaults(0).top().right();
-        root.columnDefaults(1).left();
-        /*ambientColorR = slider("Ambient R", 1);
-        ambientColorG = slider("Ambient G", 1);
-        ambientColorB = slider("Ambient B", 1);
-        ambientIntensity = slider("Ambient intensity", 0.35f);
-        lightColorR = slider("Light R", 1);
-        lightColorG = slider("Light G", 0.7f);
-        lightColorB = slider("Light B", 0.6f);
-        lightZ = slider("Light Z", 0.07f);*/
-        //attenuationX = slider("Something something", 0.4f);
-        /*attenuationY = slider("Attenuation*d", 3);
-        attenuationZ = slider("Attenuation*d*d", 5);*/
-        //strength = slider("Something else", 1);
-        label = label("Welcome to Morris Town");
-        {
-            Table table = new Table();
-            table.defaults().space(12);
-            table.add(useShadow = checkbox("Option A", true));
-            table.add(useNormals = checkbox("Option B", true));
-            table.add(yInvert = checkbox("Option C", true));
-            root.add(table).colspan(2).row();
-        }
+        window.row().prefWidth(Gdx.graphics.getWidth() * 0.95f);
+        label = new Label("Welcome to Morris Town", skin);
+        label.setWrap(true);
+        window.add(label).align(Align.center).padLeft(5).padRight(5).padBottom(20).expandX();
 
-        TextButton resetButton = new TextButton("Reset", skin);
-        resetButton.getColor().a = 0.66f;
-        window.getButtonTable().add(resetButton).height(20);
+        window.row().prefWidth(Gdx.graphics.getWidth() * 0.95f);
+        contentLabel = new Label("Morristown is a narrative game to help learn how to be safe online"
+                + "Players will experience scenarios which challenge them to create strong passwords"
+                + ", learn about concepts like viruses and phishing and more.", skin);
+        contentLabel.setWrap(true);
+        window.add(contentLabel).align(Align.center).padLeft(5).padRight(5).expandX();
 
-        window.add(root).expand().fill();
-        window.setPosition(0, Gdx.graphics.getHeight());
+
         window.pack();
+
 
         return window;
     }
@@ -168,7 +100,6 @@ public class Display {
         //stage.act();
         //stage.draw();
     }
-
 
 
 

@@ -7,6 +7,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -61,7 +62,7 @@ public class MyGdxGame extends Game {
 
         //background texture
 		background = new Texture(Gdx.files.internal("android/assets/background_mosaic.jpg"));
-        gameoverTexture = new Texture(Gdx.files.internal("android/assets/data/GameOver.png"));
+        //gameoverTexture = new Texture(Gdx.files.internal("android/assets/data/GameOver.png"));
 
         //font
         font = new BitmapFont();
@@ -136,7 +137,7 @@ public class MyGdxGame extends Game {
         collisionDetectBad.hasCollide();
         collisionDetectVirus.hasCollide();
 
-        addPlayerScore();
+        //addPlayerScore();
 
         //count down timer
         countDown();
@@ -170,15 +171,15 @@ public class MyGdxGame extends Game {
             isGameOver();
 
             font.draw(batch, "Score: " + Integer.toString(playerScore), 10,20);
-            font.draw(batch, "Bullets Remain: " + shotManager.shotRemain, VIEWPORT_WIDTH-130, 20);
+            //font.draw(batch, "Bullets Remain: " + shotManager.shotRemain, VIEWPORT_WIDTH-130, 20);
             font.draw(batch, "Time Remain: " + Integer.toString((int)timeRemain) + "seconds", 120, 20);
 
         }
         else {
-            batch.draw(gameoverTexture,VIEWPORT_WIDTH/3, VIEWPORT_HEIGHT/2+80);
+            //batch.draw(gameoverTexture,VIEWPORT_WIDTH/3, VIEWPORT_HEIGHT/2+80);
             font.draw(batch, "Total Score: " + playerScore, VIEWPORT_WIDTH/3, VIEWPORT_HEIGHT/2+50);
             font.draw(batch,"Time Used: " + getTimeUsed(), VIEWPORT_WIDTH/3, VIEWPORT_HEIGHT/2+30);
-            font.draw(batch, "Remaining Bullet: " + shotManager.shotRemain, VIEWPORT_WIDTH/3, VIEWPORT_HEIGHT/2+10);
+            //font.draw(batch, "Remaining Bullet: " + shotManager.shotRemain, VIEWPORT_WIDTH/3, VIEWPORT_HEIGHT/2+10);
             font.draw(batch,"Press R to Start a New Game Press Q: Return to Main Menu", VIEWPORT_WIDTH/3, VIEWPORT_HEIGHT/2 -10);
         }
     }
@@ -224,8 +225,8 @@ public class MyGdxGame extends Game {
      * @return
      */
     private boolean isGameOver() {
-        if(shotManager.shotRemain == 0 || timeRemain <= 0f || playerScore >= winScore)
-            return true;
+        /*if(shotManager.shotRemain == 0 || timeRemain <= 0f || playerScore >= winScore)
+            return true;*/
         return false;
     }
 
@@ -264,20 +265,20 @@ public class MyGdxGame extends Game {
         for(int i = 0; i < targetGoodNames.length; i++) {
             Texture targetTexture = new Texture(Gdx.files.internal("android/assets/data/" + targetGoodNames[i]));
             String tempName = targetGoodNames[i].replace(".png", "");
-            target = new Target(targetTexture, random.nextInt(50)+20, 25, tempName);
-            goodTargets.add(target);
+            //target = new Target(targetTexture, random.nextInt(50)+20, 25, tempName);
+            //goodTargets.add(target);
         }
         for(int i = 0; i < targetBadNames.length; i++) {
             Texture adwareTexture = new Texture(Gdx.files.internal("android/assets/data/" + targetBadNames[i]));
             String tempName = targetBadNames[i].replace(".png", "");
-            target = new Target(adwareTexture, random.nextInt(80)+40, -10, tempName);
-            badTargets.add(target);
+            //target = new Target(adwareTexture, random.nextInt(80)+40, -10, tempName);
+            //badTargets.add(target);
         }
         for(int i = 0; i < targetVirus.length; i++) {
             Texture targetTexture = new Texture(Gdx.files.internal("android/assets/data/" + targetVirus[i]));
             String tempName = targetVirus[i].replace(".png", "");
-            target = new Target(targetTexture, random.nextInt(150)+80, 50, tempName);
-            virusTargets.add(target);
+            //target = new Target(targetTexture, random.nextInt(150)+80, 50, tempName);
+            //virusTargets.add(target);
         }
     }
 

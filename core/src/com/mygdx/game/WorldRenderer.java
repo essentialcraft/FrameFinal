@@ -7,7 +7,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -60,7 +59,7 @@ public class WorldRenderer implements Disposable {
     private void init () {
 
         //set stage from controller
-        stage = worldController.display.getStage();
+        stage = worldController.getStage();
         debugRenderer = new Box2DDebugRenderer();
 
         /*
@@ -127,7 +126,8 @@ public class WorldRenderer implements Disposable {
             tileRenderer.render(bgLayers);
 
             batch.begin();
-            worldController.dude.render(batch);
+            worldController.player.render(batch);
+            worldController.npc.render(batch);
             batch.end();
 
 

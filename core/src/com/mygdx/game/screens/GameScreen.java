@@ -21,7 +21,7 @@ public class GameScreen extends DefaultScreen implements InputProcessor {
         Assets.instance.loadAssets(new AssetManager());
 
         // Initialize controller and renderer
-        worldController = new WorldController();
+        worldController = new WorldController(stage);
         worldRenderer = new WorldRenderer(worldController);
 
         // Game world is active on start

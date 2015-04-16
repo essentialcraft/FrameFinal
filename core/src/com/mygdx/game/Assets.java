@@ -19,6 +19,7 @@ import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
 
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.mygdx.game.entities.NPC;
 import com.mygdx.game.util.Constants;
 
 
@@ -36,6 +37,7 @@ public class Assets implements Disposable, AssetErrorListener {
     * Each is an inner class of this class
     * */
     public DudeAsset dudeAsset;
+    public NPC npc;
     public MainMap mainMap;
 
     public Ground ground;
@@ -79,7 +81,6 @@ public class Assets implements Disposable, AssetErrorListener {
             Gdx.app.debug(TAG, "asset: " + a);
 
 
-
         /*
         * The atlas was loaded into the asset manager, to use it we need to
         * "get" it from the AssetManager
@@ -95,6 +96,7 @@ public class Assets implements Disposable, AssetErrorListener {
         * so they are available later on
         * */
         dudeAsset = new DudeAsset(atlas);
+        npc = new NPC(atlas);
         ground = new Ground();
         groundTwo = new GroundTwo(atlas);
         decoration = new LevelDecoration(atlas);
@@ -168,6 +170,16 @@ public class Assets implements Disposable, AssetErrorListener {
         public DudeAsset(TextureAtlas atlas) {
 
             body = atlas.findRegion("dude");
+        }
+
+    }
+
+    public class NPC {
+        public final AtlasRegion body;
+
+        public NPC(TextureAtlas atlas) {
+
+            body = atlas.findRegion("lisa");
         }
 
     }

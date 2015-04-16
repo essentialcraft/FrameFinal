@@ -15,6 +15,10 @@ public abstract class DefaultScreen implements Screen {
         this.stage = stage;
     }
 
+    public Stage getStage(){
+        return stage;
+    }
+
     @Override
     public void resize(int width, int height) {
     }

@@ -19,6 +19,7 @@ public class ShooterScreen extends DefaultScreen implements InputProcessor {
 
     public ShooterScreen(Stage stage, Game game) {
         super(stage, game);
+
 //        Assets.instance.loadAssets(new AssetManager());
 
         // Initialize controller and renderer

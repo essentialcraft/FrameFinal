@@ -5,14 +5,16 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.physics.box2d.*;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ArrayMap;
 import com.mygdx.game.*;
-import com.mygdx.game.entities.Dude;
+import com.mygdx.game.entities.AbstractDynamicObject;
+import com.mygdx.game.entities.Player;
 import com.mygdx.game.entities.NPC;
 import com.mygdx.game.maps.MainTileMap;
+import com.mygdx.game.screens.gui.DialogWindow;
 import com.mygdx.game.screens.gui.Display;
 import com.mygdx.game.util.Constants;
 import com.mygdx.game.util.MapBodyManager;
@@ -37,7 +39,7 @@ public class WorldController implements InputProcessor {
 
     //not bein used
     public MainTileMap mainMap;
-    public World world;
+    //public World world;
     public MapBodyManager bodyManager;
 
     /*
@@ -50,12 +52,13 @@ public class WorldController implements InputProcessor {
     * Is placed in controller so input has access
     * */
     public Display display;
+    public DialogWindow dialogWindow;
 
     /*
     * Actor initialization
     * Dude is only active sprite 3/4/2015
     * */
-    public Dude dude;
+    public Player player;
     public NPC npc;
 
     public Sprite[] spriteGroup;
@@ -71,17 +74,23 @@ public class WorldController implements InputProcessor {
     /*
     * Default constructor
     * */
-    public WorldController () {
-        init();
+    public WorldController (Stage stage) {
+        init(stage);
     }
 
+
+    private Stage stage;
+
+    public Stage getStage(){
+        return stage;
+    }
 
     /*
     * Build class
     * */
-    private void init() {
+    private void init(Stage stage) {
 
-
+        this.stage = stage;
         Gdx.input.setInputProcessor(this);
         //world = new World(new Vector2(0,0),true);
         /*
@@ -99,8 +108,10 @@ public class WorldController implements InputProcessor {
 
         /*Initiate everything*/
         initActors();
-        initUI();
+        initUI(stage);
+        //stage.addActor(dialogWindow.makeWindow());
         bodyManager.createPhysics(Assets.instance.mainMap.map, "Obstacles");
+        createCollisionListener();
     }
 
     /*
@@ -111,8 +122,11 @@ public class WorldController implements InputProcessor {
     }
 
 
-    public void initUI(){
+    public void initUI(Stage stage){
         display = new Display();
+        dialogWindow = new DialogWindow();
+        stage.addActor(display.makeWindow());
+        stage.addActor(dialogWindow.makeWindow());
     }
 
     /*
@@ -131,9 +145,12 @@ public class WorldController implements InputProcessor {
     * Create actors, for now specifically the dude actor
     * */
     private void initActors(){
-        dude = new Dude(0);
-        dude.setRegion(Assets.instance.dudeAsset.body);
-        dude.getBody().setTransform(dude.position.x + dude.getWidth(), dude.position.y + dude.getHeight(), 0);
+        player = new Player(0);
+        npc = new NPC(1);
+        npc.setRegion(Assets.instance.npc.body);
+        npc.getBody().setTransform(npc.position.x + npc.getWidth(), npc.position.y + npc.getHeight(), 0);
+        player.setRegion(Assets.instance.dudeAsset.body);
+        player.getBody().setTransform(player.position.x + player.getWidth(), player.position.y + player.getHeight(), 0);
     }
 
 
@@ -242,21 +259,35 @@ public class WorldController implements InputProcessor {
             // data is an instance of the Entity class
             //Entity e = (Entity) b.getUserData();
 
-            if (dude != null) {
+            if (player != null) {
                 // Update the entities/sprites position and angle
-                dude.setPosition(b.getPosition().x, b.getPosition().y);
+                player.setPosition(b.getPosition().x, b.getPosition().y);
                 // We need to convert our angle from radians to degrees
                 //dude.setRotation(MathUtils.radiansToDegrees * b.getAngle());
             }
+        }
+
+        int numContacts = GameInstance.instance.world.getContactCount();
+        if (numContacts > 0) {
+            //Gdx.app.log("contact", "start of contact list");
+            for (Contact contact : GameInstance.instance.world.getContactList()) {
+                Fixture fixtureA = contact.getFixtureA();
+                Fixture fixtureB = contact.getFixtureB();
+                //Gdx.app.log("contact", "between " + fixtureA.toString() + " and " + fixtureB.toString());
+            }
+            //Gdx.app.log("contact", "end of contact list");
         }
 
         handleDebugInput(deltaTime);
         //dude.getBody().setTransform(dude.position.x + dude.getWidth(), dude.position.y + dude.getHeight(), 0);
         cameraHelper.update(deltaTime);
         //Gdx.app.debug(TAG, dude.getVelocity().toString());
-        display.setText(dude.getVelocity().toString());
+        display.setText(player.getVelocity().toString());
         display.update();
-        dude.update(deltaTime);
+        dialogWindow.update();
+        player.update(deltaTime);
+        npc.update(deltaTime);
+        npc.update(deltaTime);
         GameInstance.getInstance().world.step(1/45f, 2, 6);
     }
 
@@ -278,6 +309,46 @@ public class WorldController implements InputProcessor {
 
     }
 
+    private void createCollisionListener() {
+        GameInstance.instance.world.setContactListener(new ContactListener() {
+
+            @Override
+            public void beginContact(Contact contact) {
+                Fixture fixtureA = contact.getFixtureA();
+                Fixture fixtureB = contact.getFixtureB();
+                Gdx.app.log("beginContact", "between " + fixtureA.toString() + " and " + fixtureB.toString());
+
+
+
+                if(fixtureA.getBody().getUserData() != null && fixtureB.getBody().getUserData() != null){
+
+                }
+
+
+                /*if(fixtureA.getBody().getUserData() != null && fixtureB.getBody().getUserData() != null){
+                    Gdx.app.debug("Contact Entities", fixtureA.getBody().getUserData().getClass().toString() +
+                        " and " + fixtureB.getBody().getUserData().getClass().toString());
+                }*/
+
+            }
+
+            @Override
+            public void endContact(Contact contact) {
+                Fixture fixtureA = contact.getFixtureA();
+                Fixture fixtureB = contact.getFixtureB();
+                Gdx.app.log("endContact", "between " + fixtureA.toString() + " and " + fixtureB.toString());
+            }
+
+            @Override
+            public void preSolve(Contact contact, Manifold oldManifold) {
+            }
+
+            @Override
+            public void postSolve(Contact contact, ContactImpulse impulse) {
+            }
+
+        });
+    }
 
 
     /*
@@ -290,14 +361,14 @@ public class WorldController implements InputProcessor {
         float inputForce = 20;
 
         float sprMoveSpeed = 10 * deltaTime;
-        if(Gdx.input.isKeyPressed(Keys.W)) dude.moveCharacter(1);
-        if(Gdx.input.isKeyPressed(Keys.A)) dude.moveCharacter(2);
-        if(Gdx.input.isKeyPressed(Keys.S)) dude.moveCharacter(0);
-        if(Gdx.input.isKeyPressed(Keys.D)) dude.moveCharacter(3);
+        if(Gdx.input.isKeyPressed(Keys.W)) player.moveCharacter(1);
+        if(Gdx.input.isKeyPressed(Keys.A)) player.moveCharacter(2);
+        if(Gdx.input.isKeyPressed(Keys.S)) player.moveCharacter(0);
+        if(Gdx.input.isKeyPressed(Keys.D)) player.moveCharacter(3);
 
         if(Gdx.input.isKeyPressed(Keys.F)){
             float angle = 1 * 90 * MathUtils.degRad;
-            dude.getBody().setTransform(dude.getBody().getPosition(), angle);
+            player.getBody().setTransform(player.getBody().getPosition(), angle);
         }
 
 
@@ -369,13 +440,13 @@ public class WorldController implements InputProcessor {
     public boolean keyUp (int keycode) {
         // Reset game world
         if (keycode == Keys.R) {
-            init();
+            //init();
             Gdx.app.debug(TAG, "Game world resetted");
         }
 
         //change text
         if (keycode == Keys.B){
-            display.setText(dude.randomText());
+            display.setText(player.randomText());
 
         }
 
@@ -395,7 +466,7 @@ public class WorldController implements InputProcessor {
             // Toggle camera follow
             else if (keycode == Keys.ENTER) {
                 //cameraHelper.setTargetAbstract(cameraHelper.hasTarget() ? null : dude);
-            cameraHelper.setTargetAbstract(dude);
+            cameraHelper.setTargetAbstract(player);
                 Gdx.app.debug(TAG, "Camera follow enabled: " +
                         cameraHelper.hasTargetAbstract());
             }
