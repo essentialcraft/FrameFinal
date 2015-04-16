@@ -26,6 +26,9 @@ public class ShooterScreen extends DefaultScreen implements InputProcessor {
 //        worldRenderer = new WorldRenderer(worldController);
         virusGame = new MyGdxGame();
         virusGame.create();
+        
+        Gdx.input.setInputProcessor(this);
+
 
         // Game world is active on start
         paused = false;
@@ -47,6 +50,7 @@ public class ShooterScreen extends DefaultScreen implements InputProcessor {
         Gdx.gl.glClearColor(1f, 1f, 1f, 1f);
         // Clears the screen
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        
 
         // Render game world to screen
         virusGame.render();
